@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
 require('dotenv').config()
 
-import { User } from '../typings/user'
+import { User } from '../types/types'
 import { dbHandler } from '../database'
 
 export interface AuthenticatedRequest extends Request {

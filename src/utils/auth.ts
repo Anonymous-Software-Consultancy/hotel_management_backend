@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
-import { User } from '../typings/user'
+import { User } from '../types/types'
 require('dotenv').config()
 
 const saltRounds = 10

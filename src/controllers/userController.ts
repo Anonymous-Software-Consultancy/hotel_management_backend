@@ -2,7 +2,7 @@ import { Request, Response } from 'express'
 import { ResultSetHeader } from 'mysql2'
 
 import { dbHandler } from '../database'
-import { User } from '../typings/user'
+import { User } from '../types/types'
 import { comparePassword, createToken, encryptPassword } from '../utils/auth'
 
 export const signup = async (req: Request, res: Response): Promise<void> => {
