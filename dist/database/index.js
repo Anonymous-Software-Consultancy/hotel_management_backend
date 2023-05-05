@@ -39,8 +39,8 @@ const dbHandler = (sql, values) => __awaiter(void 0, void 0, void 0, function* (
     const connection = yield mysql.createConnection({
         host: process.env.DB_HOST || 'localhost',
         user: process.env.DB_USER || 'root',
-        password: process.env.DB_PASSWORD || 'password',
-        database: process.env.DB_NAME || 'test',
+        password: process.env.DB_PASSWORD || 'root123',
+        database: process.env.DB_NAME || 'hotel_management',
     });
     try {
         const [rows] = yield connection.execute(sql, values);
