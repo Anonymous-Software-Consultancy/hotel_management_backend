@@ -1,4 +1,7 @@
-export const successMessages = {
+import { objectType } from "../types/types"
+
+
+export const successMessages:objectType = {
     hotels:{
         addHotel: 'Added New Hotel Successfully.',
         getAllHotels: 'Showing All Hotels Successfully.',
@@ -8,7 +11,7 @@ export const successMessages = {
     },
 }
 
-export const errorMessages = {
+export const errorMessages:objectType = {
     hotels:{
         isExistHotelName: 'This Hotel Name Is Already Exists.'
     },

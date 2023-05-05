@@ -1,3 +1,6 @@
+export type objectType = {
+    [key: string]: string|object;
+  }
 export interface User {
     id: number
     created_at: Date
