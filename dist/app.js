@@ -18,6 +18,8 @@ const cors_1 = __importDefault(require("cors"));
 require("reflect-metadata");
 require('dotenv').config();
 const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
+const hotelRoutes_1 = __importDefault(require("./routes/hotelRoutes"));
+const errorMiddleware_1 = require("./middlewares/errorMiddleware");
 const app = (0, express_1.default)();
 // middlewares
 app.use((0, helmet_1.default)());
@@ -26,9 +28,12 @@ app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 // routes
 app.use('/users', userRoutes_1.default);
+app.use('/hotels', hotelRoutes_1.default);
 // root
 app.get('/', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.json({ message: 'welcome!' });
 }));
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// error middleware
+app.use(errorMiddleware_1.errorMiddleWare);
