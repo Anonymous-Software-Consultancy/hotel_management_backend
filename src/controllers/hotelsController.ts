@@ -6,6 +6,7 @@ import { Request, Response, NextFunction } from "express";
 import { ErrorResponse } from "../errorHandler/errorResponse";
 import { hotelQueries } from "../utils/sqlQueries/hotelQueries";
 import { Hotel } from "../types/types";
+import { errorMessages, successMessages } from "../utils/messages";
 
 export const addHotel = async (
   req: Request,
@@ -40,7 +41,9 @@ export const addHotel = async (
 
     if (isExistHotelName.length > 0) {
       // throw new ErrorResponse("This Hotel Name is already exist.", 403)
-      return next(new ErrorResponse("This Hotel Name is already exists.", 403));
+      return next(
+        new ErrorResponse(errorMessages.hotels.isExistHotelName, 403)
+      );
     } else {
       const results: RowDataPacket[] = await dbHandler<RowDataPacket>(
         hotelQueries.addHotel,
@@ -52,7 +55,7 @@ export const addHotel = async (
           { ...req.body, id: results[0]?.insertId },
           true,
           200,
-          "Added new hotel successfully."
+          successMessages.hotels.addHotel
         )
       );
     }
@@ -72,7 +75,7 @@ export const getAllHotels = async (
       []
     );
     res.send(
-      sendOnFormat(results, true, 200, "Showing all hotels successfully.")
+      sendOnFormat(results, true, 200, successMessages.hotels.getAllHotels)
     );
   } catch (error) {
     return next(new ErrorResponse(error, 500));
@@ -90,7 +93,14 @@ export const getSingleHotelById = async (
       hotelQueries.getSingleHotelById,
       [targetHotelId]
     );
-    res.send(sendOnFormat(results, true, 200, "Found Hotel Successfully."));
+    res.send(
+      sendOnFormat(
+        results,
+        true,
+        200,
+        successMessages.hotels.getSingleHotelById
+      )
+    );
   } catch (error) {
     return next(new ErrorResponse(error, 500));
   }
@@ -128,7 +138,12 @@ export const updateSingleHotelById = async (
     );
     console.log("💛results:", results);
     res.send(
-      sendOnFormat({ ...req.body }, true, 200, "Hotel updated Successfully.")
+      sendOnFormat(
+        { ...req.body },
+        true,
+        200,
+        successMessages.hotels.updateSingleHotelById
+      )
     );
   } catch (error) {
     return next(new ErrorResponse(error, 500));
@@ -147,7 +162,9 @@ export const deleteHotelById = async (
       [targetHotelId]
     );
     console.log("💛results:", results);
-    res.send(sendOnFormat(results, true, 200, "Deleted Hotel Successfully."));
+    res.send(
+      sendOnFormat(results, true, 200, successMessages.hotels.deleteHotelById)
+    );
   } catch (error) {
     return next(new ErrorResponse(error, 500));
   }
