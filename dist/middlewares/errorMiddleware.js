@@ -4,7 +4,7 @@ exports.errorMiddleWare = void 0;
 const errorMiddleWare = (err, req, res, next) => {
     console.log("💛errorMiddleWare::", err.statusCode + ' = ' + err.name + " = " + err);
     err.statusCode = err.statusCode || 500;
-    err.message = err.message || "Internal Server Error";
+    err.message = err.message || "Internal Server Error!";
     if (!err) {
         return next();
     }
