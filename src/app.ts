@@ -6,6 +6,7 @@ require('dotenv').config();
 
 import userRoutes from './routes/userRoutes';
 import hotelRoutes from './routes/hotelRoutes';
+import facilityGroupRoutes from './routes/facilityGroupRoutes';
 import { errorMiddleWare } from './middlewares/errorMiddleware';
 
 const app = express()
@@ -19,6 +20,7 @@ app.use(express.urlencoded({ extended: true }))
 // routes
 app.use('/users', userRoutes);
 app.use('/hotels', hotelRoutes);
+app.use('/hotels', facilityGroupRoutes)
 
 // root
 app.get('/', async (_req: Request, res: Response) => {
