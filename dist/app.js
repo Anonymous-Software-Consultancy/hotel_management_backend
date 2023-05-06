@@ -19,6 +19,7 @@ require("reflect-metadata");
 require('dotenv').config();
 const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
 const hotelRoutes_1 = __importDefault(require("./routes/hotelRoutes"));
+const facilityGroupRoutes_1 = __importDefault(require("./routes/facilityGroupRoutes"));
 const errorMiddleware_1 = require("./middlewares/errorMiddleware");
 const app = (0, express_1.default)();
 // middlewares
@@ -29,6 +30,7 @@ app.use(express_1.default.urlencoded({ extended: true }));
 // routes
 app.use('/users', userRoutes_1.default);
 app.use('/hotels', hotelRoutes_1.default);
+app.use('/hotels', facilityGroupRoutes_1.default);
 // root
 app.get('/', (_req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.json({ message: 'welcome!' });

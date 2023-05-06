@@ -14,6 +14,7 @@ const responseFormat_1 = require("./../utils/responseFormat");
 const index_1 = require("./../database/index");
 const errorResponse_1 = require("../errorHandler/errorResponse");
 const hotelQueries_1 = require("../utils/sqlQueries/hotelQueries");
+const messages_1 = require("../utils/messages");
 const addHotel = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     try {
@@ -30,12 +31,12 @@ const addHotel = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
         const isExistHotelName = yield (0, index_1.dbHandler)(hotelQueries_1.hotelQueries.isExistHotelName, [name]);
         if (isExistHotelName.length > 0) {
             // throw new ErrorResponse("This Hotel Name is already exist.", 403)
-            return next(new errorResponse_1.ErrorResponse("This Hotel Name is already exists.", 403));
+            return next(new errorResponse_1.ErrorResponse(messages_1.errorMessages.hotels.isExistHotelName, 403));
         }
         else {
             const results = yield (0, index_1.dbHandler)(hotelQueries_1.hotelQueries.addHotel, values);
             console.log("💛results:", results);
-            res.send((0, responseFormat_1.sendOnFormat)(Object.assign(Object.assign({}, req.body), { id: (_a = results[0]) === null || _a === void 0 ? void 0 : _a.insertId }), true, 200, "Added new hotel successfully."));
+            res.send((0, responseFormat_1.sendOnFormat)(Object.assign(Object.assign({}, req.body), { id: (_a = results[0]) === null || _a === void 0 ? void 0 : _a.insertId }), true, 200, messages_1.successMessages.hotels.addHotel));
         }
     }
     catch (error) {
@@ -46,7 +47,7 @@ exports.addHotel = addHotel;
 const getAllHotels = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const results = yield (0, index_1.dbHandler)(hotelQueries_1.hotelQueries.getAllHotels, []);
-        res.send((0, responseFormat_1.sendOnFormat)(results, true, 200, "Showing all hotels successfully."));
+        res.send((0, responseFormat_1.sendOnFormat)(results, true, 200, messages_1.successMessages.hotels.getAllHotels));
     }
     catch (error) {
         return next(new errorResponse_1.ErrorResponse(error, 500));
@@ -57,7 +58,7 @@ const getSingleHotelById = (req, res, next) => __awaiter(void 0, void 0, void 0,
     try {
         const targetHotelId = req.params.id;
         const results = yield (0, index_1.dbHandler)(hotelQueries_1.hotelQueries.getSingleHotelById, [targetHotelId]);
-        res.send((0, responseFormat_1.sendOnFormat)(results, true, 200, "Found Hotel Successfully."));
+        res.send((0, responseFormat_1.sendOnFormat)(results, true, 200, messages_1.successMessages.hotels.getSingleHotelById));
     }
     catch (error) {
         return next(new errorResponse_1.ErrorResponse(error, 500));
@@ -79,7 +80,7 @@ const updateSingleHotelById = (req, res, next) => __awaiter(void 0, void 0, void
         ];
         const results = yield (0, index_1.dbHandler)(hotelQueries_1.hotelQueries.updateSingleHotelById, [values, targetHotelId]);
         console.log("💛results:", results);
-        res.send((0, responseFormat_1.sendOnFormat)(Object.assign({}, req.body), true, 200, "Hotel updated Successfully."));
+        res.send((0, responseFormat_1.sendOnFormat)(Object.assign({}, req.body), true, 200, messages_1.successMessages.hotels.updateSingleHotelById));
     }
     catch (error) {
         return next(new errorResponse_1.ErrorResponse(error, 500));
@@ -91,7 +92,7 @@ const deleteHotelById = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
         const targetHotelId = req.params.id;
         const results = yield (0, index_1.dbHandler)(hotelQueries_1.hotelQueries.deleteHotelById, [targetHotelId]);
         console.log("💛results:", results);
-        res.send((0, responseFormat_1.sendOnFormat)(results, true, 200, "Deleted Hotel Successfully."));
+        res.send((0, responseFormat_1.sendOnFormat)(results, true, 200, messages_1.successMessages.hotels.deleteHotelById));
     }
     catch (error) {
         return next(new errorResponse_1.ErrorResponse(error, 500));
