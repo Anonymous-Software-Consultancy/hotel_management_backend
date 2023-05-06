@@ -50,14 +50,16 @@ export const addHotel = async (
         values
       );
       console.log("💛results:", results);
-      res.send(
-        sendOnFormat(
-          { ...req.body, id: results[0]?.insertId },
-          true,
-          200,
-          successMessages.hotels.addHotel
-        )
-      );
+      if (results.length !== 0) {
+        res.send(
+          sendOnFormat(
+            { ...req.body, id: results[0]?.insertId },
+            true,
+            200,
+            successMessages.hotels.addHotel
+          )
+        );
+      }
     }
   } catch (error) {
     return next(new ErrorResponse(error, 500));
@@ -74,9 +76,11 @@ export const getAllHotels = async (
       hotelQueries.getAllHotels,
       []
     );
-    res.send(
-      sendOnFormat(results, true, 200, successMessages.hotels.getAllHotels)
-    );
+    if (results.length !== 0) {
+      res.send(
+        sendOnFormat(results, true, 200, successMessages.hotels.getAllHotels)
+      );
+    }
   } catch (error) {
     return next(new ErrorResponse(error, 500));
   }
@@ -93,14 +97,16 @@ export const getSingleHotelById = async (
       hotelQueries.getSingleHotelById,
       [targetHotelId]
     );
-    res.send(
-      sendOnFormat(
-        results,
-        true,
-        200,
-        successMessages.hotels.getSingleHotelById
-      )
-    );
+    if (results.length !== 0) {
+      res.send(
+        sendOnFormat(
+          results,
+          true,
+          200,
+          successMessages.hotels.getSingleHotelById
+        )
+      );
+    }
   } catch (error) {
     return next(new ErrorResponse(error, 500));
   }
@@ -137,14 +143,16 @@ export const updateSingleHotelById = async (
       [values, targetHotelId]
     );
     console.log("💛results:", results);
-    res.send(
-      sendOnFormat(
-        { ...req.body },
-        true,
-        200,
-        successMessages.hotels.updateSingleHotelById
-      )
-    );
+    if (results.length !== 0) {
+      res.send(
+        sendOnFormat(
+          { ...req.body },
+          true,
+          200,
+          successMessages.hotels.updateSingleHotelById
+        )
+      );
+    }
   } catch (error) {
     return next(new ErrorResponse(error, 500));
   }
@@ -162,9 +170,11 @@ export const deleteHotelById = async (
       [targetHotelId]
     );
     console.log("💛results:", results);
-    res.send(
-      sendOnFormat(results, true, 200, successMessages.hotels.deleteHotelById)
-    );
+    if (results.length !== 0) {
+      res.send(
+        sendOnFormat(results, true, 200, successMessages.hotels.deleteHotelById)
+      );
+    }
   } catch (error) {
     return next(new ErrorResponse(error, 500));
   }

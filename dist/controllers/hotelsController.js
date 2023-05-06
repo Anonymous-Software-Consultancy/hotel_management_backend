@@ -36,7 +36,9 @@ const addHotel = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
         else {
             const results = yield (0, index_1.dbHandler)(hotelQueries_1.hotelQueries.addHotel, values);
             console.log("💛results:", results);
-            res.send((0, responseFormat_1.sendOnFormat)(Object.assign(Object.assign({}, req.body), { id: (_a = results[0]) === null || _a === void 0 ? void 0 : _a.insertId }), true, 200, messages_1.successMessages.hotels.addHotel));
+            if (results.length !== 0) {
+                res.send((0, responseFormat_1.sendOnFormat)(Object.assign(Object.assign({}, req.body), { id: (_a = results[0]) === null || _a === void 0 ? void 0 : _a.insertId }), true, 200, messages_1.successMessages.hotels.addHotel));
+            }
         }
     }
     catch (error) {
@@ -47,7 +49,9 @@ exports.addHotel = addHotel;
 const getAllHotels = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const results = yield (0, index_1.dbHandler)(hotelQueries_1.hotelQueries.getAllHotels, []);
-        res.send((0, responseFormat_1.sendOnFormat)(results, true, 200, messages_1.successMessages.hotels.getAllHotels));
+        if (results.length !== 0) {
+            res.send((0, responseFormat_1.sendOnFormat)(results, true, 200, messages_1.successMessages.hotels.getAllHotels));
+        }
     }
     catch (error) {
         return next(new errorResponse_1.ErrorResponse(error, 500));
@@ -58,7 +62,9 @@ const getSingleHotelById = (req, res, next) => __awaiter(void 0, void 0, void 0,
     try {
         const targetHotelId = req.params.id;
         const results = yield (0, index_1.dbHandler)(hotelQueries_1.hotelQueries.getSingleHotelById, [targetHotelId]);
-        res.send((0, responseFormat_1.sendOnFormat)(results, true, 200, messages_1.successMessages.hotels.getSingleHotelById));
+        if (results.length !== 0) {
+            res.send((0, responseFormat_1.sendOnFormat)(results, true, 200, messages_1.successMessages.hotels.getSingleHotelById));
+        }
     }
     catch (error) {
         return next(new errorResponse_1.ErrorResponse(error, 500));
@@ -80,7 +86,9 @@ const updateSingleHotelById = (req, res, next) => __awaiter(void 0, void 0, void
         ];
         const results = yield (0, index_1.dbHandler)(hotelQueries_1.hotelQueries.updateSingleHotelById, [values, targetHotelId]);
         console.log("💛results:", results);
-        res.send((0, responseFormat_1.sendOnFormat)(Object.assign({}, req.body), true, 200, messages_1.successMessages.hotels.updateSingleHotelById));
+        if (results.length !== 0) {
+            res.send((0, responseFormat_1.sendOnFormat)(Object.assign({}, req.body), true, 200, messages_1.successMessages.hotels.updateSingleHotelById));
+        }
     }
     catch (error) {
         return next(new errorResponse_1.ErrorResponse(error, 500));
@@ -92,7 +100,9 @@ const deleteHotelById = (req, res, next) => __awaiter(void 0, void 0, void 0, fu
         const targetHotelId = req.params.id;
         const results = yield (0, index_1.dbHandler)(hotelQueries_1.hotelQueries.deleteHotelById, [targetHotelId]);
         console.log("💛results:", results);
-        res.send((0, responseFormat_1.sendOnFormat)(results, true, 200, messages_1.successMessages.hotels.deleteHotelById));
+        if (results.length !== 0) {
+            res.send((0, responseFormat_1.sendOnFormat)(results, true, 200, messages_1.successMessages.hotels.deleteHotelById));
+        }
     }
     catch (error) {
         return next(new errorResponse_1.ErrorResponse(error, 500));

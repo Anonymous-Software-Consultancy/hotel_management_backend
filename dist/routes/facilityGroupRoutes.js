@@ -4,7 +4,7 @@ const express_1 = require("express");
 const facilityGroupController_1 = require("../controllers/facilityGroupController");
 const router = (0, express_1.Router)();
 router.post("/add-facility-group", facilityGroupController_1.addFacilityGroup);
-// router.get("/get-facility-group/:id", getFacilityGroupById);
+router.get("/get-facility-group/:id", facilityGroupController_1.getFacilityGroupById);
 // router.post("/update-facility-group/:id", updateFacilityGroupById);
 // router.get("/delete-facility-group/:id", deleteFacilityGroupById);
 exports.default = router;

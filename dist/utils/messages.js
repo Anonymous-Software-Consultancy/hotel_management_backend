@@ -10,9 +10,16 @@ exports.successMessages = {
         updateSingleHotelById: 'Hotel Updated Successfully.',
         deleteHotelById: 'Deleted Hotel Successfully.'
     },
+    facility_group: {
+        addFacilityGroup: 'Added Facilities Successfully.',
+        getFacilityGroupById: 'Found Facility Group Successfully.',
+    }
 };
 exports.errorMessages = {
     hotels: {
         isExistHotelName: 'This Hotel Name Is Already Exists.'
     },
+    facility_group: {
+        isExistFacilityGroup: 'This Facility Group Is Already Exists.'
+    }
 };
