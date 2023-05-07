@@ -74,27 +74,103 @@ export const addFacilityGroup = async (
   }
 };
 
-
 export const getFacilityGroupById = async (
   req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-    try {
-        const targetId = req.params.id
-        const results: FacilityGroup[] = await dbHandler<FacilityGroup>(facilityGroupQueries.getFacilityGroupById, [targetId])
-        console.log("💛results:", results)
-        if(results.length !== 0){
-            res.send(
-                sendOnFormat(
-                  { ...req.body},
-                  true,
-                  200,
-                  successMessages.facility_group.getFacilityGroupById
-                )
-              );
-        }
-    } catch (error) {
-        return next(new ErrorResponse(error, 500));
+  try {
+    const targetId = req.params.id;
+    const results: FacilityGroup[] = await dbHandler<FacilityGroup>(
+      facilityGroupQueries.getFacilityGroupById,
+      [targetId]
+    );
+    console.log("💛results:", results);
+    if (results.length !== 0) {
+      res.send(
+        sendOnFormat(
+          { ...req.body },
+          true,
+          200,
+          successMessages.facility_group.getFacilityGroupById
+        )
+      );
     }
+  } catch (error) {
+    return next(new ErrorResponse(error, 500));
+  }
+};
+
+export const updateFacilityGroupById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const {
+      breakfast,
+      restaurant,
+      parking,
+      two_four_security,
+      business,
+      swimming_pool,
+      room_service,
+      indoor_games,
+      outdoor_activities,
+      fitness_centre,
+      airport_shuttle,
+      early_checkin,
+      late_checkout,
+      kid_friendly,
+      couple_friendly,
+      disability_friendly,
+      hotel_id,
+    } = req.body;
+
+    const targetId = req.params.id;
+    const results: FacilityGroup[] = await dbHandler<FacilityGroup>(
+      facilityGroupQueries.updateFacilityGroupById,
+      [req.body, targetId]
+    );
+    console.log("💛results:", results);
+    if (results.length !== 0) {
+      res.send(
+        sendOnFormat(
+          { ...req.body },
+          true,
+          200,
+          successMessages.facility_group.updateFacilityGroupById
+        )
+      );
+    }
+  } catch (error) {
+    return next(new ErrorResponse(error, 500));
+  }
+};
+
+export const deleteFacilityGroupById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const targetId = req.params.id;
+    const results: OkPacket[] = await dbHandler<OkPacket>(
+      facilityGroupQueries.deleteFacilityGroupById,
+      [targetId]
+    );
+    console.log("💛results:", results);
+    if (results.length !== 0) {
+      res.send(
+        sendOnFormat(
+          results,
+          true,
+          200,
+          successMessages.facility_group.deleteFacilityGroupById
+        )
+      );
+    }
+  } catch (error) {
+    return next(new ErrorResponse(error, 500));
+  }
 };
