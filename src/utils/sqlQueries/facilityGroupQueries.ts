@@ -3,7 +3,7 @@ type facilityGroupQueryType = {
 };
 
 export const facilityGroupQueries = {
-  addFacilityGroup: `INSERT INTO facility_group(
+  addFacilityGroup: `INSERT INTO facility_group (
         breakfast,
         restaurant,
         parking,

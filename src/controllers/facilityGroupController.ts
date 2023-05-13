@@ -1,5 +1,5 @@
 import { sendOnFormat } from "./../utils/responseFormat";
-import { dbHandler } from "./../database/index";
+import { dbHandler, dbHandlerPost } from "./../database/index";
 import { ResultSetHeader } from "mysql2";
 import { OkPacket, RowDataPacket } from "mysql2";
 import { Request, Response, NextFunction } from "express";
@@ -54,15 +54,15 @@ export const addFacilityGroup = async (
       disability_friendly,
       hotel_id,
     ];
-    const results: ResultSetHeader[] = await dbHandler<ResultSetHeader>(
+    const results: ResultSetHeader = await dbHandlerPost<ResultSetHeader>(
       facilityGroupQueries.addFacilityGroup,
       [values]
     );
     console.log("💛results:", results);
-    if (results.length !== 0) {
+    if (results?.insertId) {
       res.send(
         sendOnFormat(
-          { ...req.body, id: results[0]?.insertId },
+          { ...req.body, id: results?.insertId },
           true,
           200,
           successMessages.facility_group.addFacilityGroup
@@ -86,7 +86,7 @@ export const getFacilityGroupById = async (
       [targetId]
     );
     console.log("💛results:", results);
-    if (results.length !== 0) {
+    if (results) {
       res.send(
         sendOnFormat(
           { ...req.body },
@@ -128,12 +128,12 @@ export const updateFacilityGroupById = async (
     } = req.body;
 
     const targetId = req.params.id;
-    const results: FacilityGroup[] = await dbHandler<FacilityGroup>(
+    const results: FacilityGroup = await dbHandlerPost<FacilityGroup>(
       facilityGroupQueries.updateFacilityGroupById,
       [req.body, targetId]
     );
     console.log("💛results:", results);
-    if (results.length !== 0) {
+    if (results) {
       res.send(
         sendOnFormat(
           { ...req.body },
