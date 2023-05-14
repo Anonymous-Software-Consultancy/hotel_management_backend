@@ -19,3 +19,13 @@ export const addBoardType = async (req: Request, res: Response, next: NextFuncti
         return next(new ErrorResponse(error, 500))
     }
 }
+
+export const getBoardTypes = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        const sql = `SELECT * FROM board_types`
+        const results: BoardType[] = await dbHandler<BoardType>(sql, [])
+        if (results.length !== 0) res.send(sendOnFormat(results, true, 200, successMessages.facility_group.getFacilityGroupById))
+    } catch (error) {
+        return next(new ErrorResponse(error, 500))
+    }
+}
