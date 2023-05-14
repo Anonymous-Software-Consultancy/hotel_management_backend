@@ -26,7 +26,7 @@ app.use('/board-types', boardTypes)
 
 // root
 app.get('/', async (_req: Request, res: Response) => {
-    res.json({ message: 'welcome!' })
+    res.json({ message: 'Welcome!' })
 })
 
 const PORT = process.env.PORT || 5000
