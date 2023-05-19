@@ -12,6 +12,7 @@ export const successMessages = {
     },
     facility_group:{
         addFacilityGroup: 'Added Facilities Successfully.',
+        getAllFacilityGroup: 'Showing All Facility Group Successfully.',
         getFacilityGroupById: 'Found Facility Group Successfully.',
         updateFacilityGroupById: 'Facility Group Updated Successfully.',
         deleteFacilityGroupById: 'Deleted Facility Group Successfully.'

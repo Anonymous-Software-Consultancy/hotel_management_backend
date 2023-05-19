@@ -51,9 +51,21 @@ export const addFacilityGroup = async (req: Request, res: Response, next: NextFu
             hotel_id,
         ]
         const results: ResultSetHeader = await dbHandlerPost<ResultSetHeader>(facilityGroupQueries.addFacilityGroup, values)
-        console.log('💛results:', results)
-        if (results) {
+       
+        if (results?.insertId > 0) {
             res.send(sendOnFormat({ ...req.body, id: results?.insertId }, true, 200, successMessages.facility_group.addFacilityGroup))
+        }
+    } catch (error) {
+        return next(new ErrorResponse(error, 500))
+    }
+}
+
+export const getAllFacilityGroup = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    try {
+        const results: FacilityGroup[] = await dbHandler<FacilityGroup>(facilityGroupQueries.getAllFacilityGroup, [])
+        console.log('💛results:', results)
+        if (results.length > 0) {
+            res.send(sendOnFormat(results, true, 200, successMessages.facility_group.getAllFacilityGroup))
         }
     } catch (error) {
         return next(new ErrorResponse(error, 500))
@@ -64,9 +76,9 @@ export const getFacilityGroupById = async (req: Request, res: Response, next: Ne
     try {
         const targetId = req.params.id
         const results: FacilityGroup[] = await dbHandler<FacilityGroup>(facilityGroupQueries.getFacilityGroupById, [targetId])
-        console.log('💛results:', results)
-        if (results.length !== 0) {
-            res.send(sendOnFormat({ ...req.body }, true, 200, successMessages.facility_group.getFacilityGroupById))
+        console.log('💛results:', results, results.length)
+        if (results.length > 0) {
+            res.send(sendOnFormat(results, true, 200, successMessages.facility_group.getFacilityGroupById))
         }
     } catch (error) {
         return next(new ErrorResponse(error, 500))
@@ -96,10 +108,11 @@ export const updateFacilityGroupById = async (req: Request, res: Response, next:
         } = req.body
 
         const targetId = req.params.id
+        console.log("💛targetId:", targetId)
         const results: FacilityGroup[] = await dbHandler<FacilityGroup>(facilityGroupQueries.updateFacilityGroupById, [req.body, targetId])
         console.log('💛results:', results)
-        if (results.length !== 0) {
-            res.send(sendOnFormat({ ...req.body }, true, 200, successMessages.facility_group.updateFacilityGroupById))
+        if (results.length > 0) {
+            res.send(sendOnFormat(results, true, 200, successMessages.facility_group.updateFacilityGroupById))
         }
     } catch (error) {
         return next(new ErrorResponse(error, 500))
