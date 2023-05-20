@@ -107,9 +107,28 @@ export const updateFacilityGroupById = async (req: Request, res: Response, next:
             hotel_id,
         } = req.body
 
+        const values = [
+          breakfast,
+          restaurant,
+          parking,
+          two_four_security,
+          business,
+          swimming_pool,
+          room_service,
+          indoor_games,
+          outdoor_activities,
+          fitness_centre,
+          airport_shuttle,
+          early_checkin,
+          late_checkout,
+          kid_friendly,
+          couple_friendly,
+          disability_friendly,
+          hotel_id,
+        ]
         const targetId = req.params.id
         console.log("💛targetId:", targetId)
-        const results: FacilityGroup[] = await dbHandler<FacilityGroup>(facilityGroupQueries.updateFacilityGroupById, [req.body, targetId])
+        const results: FacilityGroup[] = await dbHandler<FacilityGroup>(facilityGroupQueries.updateFacilityGroupById, [values,targetId])
         console.log('💛results:', results)
         if (results.length > 0) {
             res.send(sendOnFormat(results, true, 200, successMessages.facility_group.updateFacilityGroupById))
