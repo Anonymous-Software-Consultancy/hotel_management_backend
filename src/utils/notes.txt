@@ -1,0 +1,1 @@
+[1] https://www.becomebetterprogrammer.com/mysql-nodejs-expressjs-typescript/

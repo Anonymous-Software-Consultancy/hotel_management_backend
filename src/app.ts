@@ -8,21 +8,25 @@ import userRoutes from './routes/userRoutes'
 import hotelRoutes from './routes/hotelRoutes'
 import facilityGroupRoutes from './routes/facilityGroupRoutes'
 import boardTypes from './routes/boardTypeRoutes'
+import packagesRoutes from './routes/packagesRoutes';
+import roomRoutes from './routes/roomRoutes';
 import { errorMiddleWare } from './middlewares/errorMiddleware'
 
 const app = express()
 
 // middlewares
-app.use(helmet())
-app.use(cors<Request>())
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+app.use(helmet());
+app.use(cors<Request>());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // routes
-app.use('/users', userRoutes)
-app.use('/hotels', hotelRoutes)
-app.use('/hotels', facilityGroupRoutes)
-app.use('/board-types', boardTypes)
+app.use('/users', userRoutes);
+app.use('/hotels', hotelRoutes);
+app.use('/facility-group', facilityGroupRoutes);
+app.use('/board-types', boardTypes);
+app.use('/packages', packagesRoutes);
+app.use('/rooms', roomRoutes)
 
 // root
 app.get('/', async (_req: Request, res: Response) => {

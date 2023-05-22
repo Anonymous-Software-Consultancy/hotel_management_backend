@@ -11,45 +11,7 @@ import { facilityGroupQueries } from '../utils/sqlQueries/facilityGroupQueries'
 
 export const addFacilityGroup = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const {
-            breakfast,
-            restaurant,
-            parking,
-            two_four_security,
-            business,
-            swimming_pool,
-            room_service,
-            indoor_games,
-            outdoor_activities,
-            fitness_centre,
-            airport_shuttle,
-            early_checkin,
-            late_checkout,
-            kid_friendly,
-            couple_friendly,
-            disability_friendly,
-            hotel_id,
-        } = req.body
-
-        const values = [
-            breakfast,
-            restaurant,
-            parking,
-            two_four_security,
-            business,
-            swimming_pool,
-            room_service,
-            indoor_games,
-            outdoor_activities,
-            fitness_centre,
-            airport_shuttle,
-            early_checkin,
-            late_checkout,
-            kid_friendly,
-            couple_friendly,
-            disability_friendly,
-            hotel_id,
-        ]
+        const values = [ ...Object.values(req.body) ]
         const results: ResultSetHeader = await dbHandlerPost<ResultSetHeader>(facilityGroupQueries.addFacilityGroup, values)
        
         if (results?.insertId > 0) {
@@ -87,50 +49,11 @@ export const getFacilityGroupById = async (req: Request, res: Response, next: Ne
 
 export const updateFacilityGroupById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
-        const {
-            breakfast,
-            restaurant,
-            parking,
-            two_four_security,
-            business,
-            swimming_pool,
-            room_service,
-            indoor_games,
-            outdoor_activities,
-            fitness_centre,
-            airport_shuttle,
-            early_checkin,
-            late_checkout,
-            kid_friendly,
-            couple_friendly,
-            disability_friendly,
-            hotel_id,
-        } = req.body
-
-        const values = [
-          breakfast,
-          restaurant,
-          parking,
-          two_four_security,
-          business,
-          swimming_pool,
-          room_service,
-          indoor_games,
-          outdoor_activities,
-          fitness_centre,
-          airport_shuttle,
-          early_checkin,
-          late_checkout,
-          kid_friendly,
-          couple_friendly,
-          disability_friendly,
-          hotel_id,
-        ]
         const targetId = req.params.id
-        console.log("💛targetId:", targetId)
-        const results: FacilityGroup[] = await dbHandler<FacilityGroup>(facilityGroupQueries.updateFacilityGroupById, [values,targetId])
+        const values = [ ...Object.values(req.body), targetId ]
+        const results: FacilityGroup = await dbHandlerPost<FacilityGroup>(facilityGroupQueries.updateFacilityGroupById, values)
         console.log('💛results:', results)
-        if (results.length > 0) {
+        if (results?.affectedRows > 0) {
             res.send(sendOnFormat(results, true, 200, successMessages.facility_group.updateFacilityGroupById))
         }
     } catch (error) {
@@ -141,9 +64,9 @@ export const updateFacilityGroupById = async (req: Request, res: Response, next:
 export const deleteFacilityGroupById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
         const targetId = req.params.id
-        const results: OkPacket[] = await dbHandler<OkPacket>(facilityGroupQueries.deleteFacilityGroupById, [targetId])
+        const results: OkPacket = await dbHandlerPost<OkPacket>(facilityGroupQueries.deleteFacilityGroupById, [targetId])
         console.log('💛results:', results)
-        if (results.length !== 0) {
+        if (results.affectedRows > 0) {
             res.send(sendOnFormat(results, true, 200, successMessages.facility_group.deleteFacilityGroupById))
         }
     } catch (error) {
