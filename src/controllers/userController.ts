@@ -1,7 +1,7 @@
 import { Request, Response } from 'express'
 import { ResultSetHeader } from 'mysql2'
 
-import { dbHandler } from '../database'
+import { dbHandler, dbHandlerPost } from '../database'
 import { User } from '../types/types'
 import { comparePassword, createToken, encryptPassword } from '../utils/auth'
 
@@ -20,7 +20,8 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             `
             const values = [username, first_name, last_name, email, phone, birth_date, hashedPassword, false]
-            const results: ResultSetHeader[] = await dbHandler<ResultSetHeader>(sql, values)
+            const results: ResultSetHeader = await dbHandlerPost<ResultSetHeader>(sql, values)
+            console.log("💛results:", results?.insertId)
             res.status(201).json({
                 username,
                 first_name,
@@ -28,7 +29,7 @@ export const signup = async (req: Request, res: Response): Promise<void> => {
                 email,
                 phone,
                 birth_date,
-                id: results[0].insertId,
+                id: results?.insertId,
             })
         }
     } catch (err) {

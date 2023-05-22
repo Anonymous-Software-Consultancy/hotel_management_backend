@@ -45,7 +45,7 @@ export const addHotel = async (
         new ErrorResponse(errorMessages.hotels.isExistHotelName, 403)
       );
     } else {
-      const results: RowDataPacket[] = await dbHandler<RowDataPacket>(
+      const results: ResultSetHeader[] = await dbHandler<ResultSetHeader>(
         hotelQueries.addHotel,
         values
       );
@@ -111,6 +111,14 @@ export const getSingleHotelById = async (
     return next(new ErrorResponse(error, 500));
   }
 };
+
+// async function updatePortfolio(db: dbHandlerPost, portfolioId, update) {
+//   const query = "Update Portfolio SET " + Object.keys(update).map(key => `${key} = ?`).join(", ") + " WHERE id = ?";
+//   const parameters = [...Object.values(update), portfolioId];
+//   console.log("updatePortfolio: Running query:", query);
+//   const [rows, meta] = await db.query(query, parameters);
+//   return rows;
+// }
 
 export const updateSingleHotelById = async (
   req: Request,

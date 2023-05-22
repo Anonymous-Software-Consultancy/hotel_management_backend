@@ -3,7 +3,7 @@ type facilityGroupQueryType = {
 };
 
 export const facilityGroupQueries = {
-  addFacilityGroup: `INSERT INTO facility_group(
+  addFacilityGroup: `INSERT INTO facility_group (
         breakfast,
         restaurant,
         parking,
@@ -22,9 +22,11 @@ export const facilityGroupQueries = {
         disability_friendly,
         hotel_id) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`,
 
+  getAllFacilityGroup: `SELECT * FROM facility_group`,
+
   getFacilityGroupById: `SELECT * FROM facility_group WHERE id = ?`,
 
-  updateFacilityGroupById: `UPDATE facility_group SET (
+  updateFacilityGroupById: `UPDATE facility_group SET 
     breakfast=?,
     restaurant=?,
     parking=?,
@@ -41,7 +43,7 @@ export const facilityGroupQueries = {
     kid_friendly=?,
     couple_friendly=?,
     disability_friendly=?,
-    hotel_id=?) WHERE id = ?`,
+    hotel_id=? WHERE id = ?`,
 
   deleteFacilityGroupById: `DELETE FROM facility_group WHERE id = ?`,
 
