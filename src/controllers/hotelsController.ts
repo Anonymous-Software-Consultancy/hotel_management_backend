@@ -1,5 +1,5 @@
 import { sendOnFormat } from "./../utils/responseFormat";
-import { dbHandler } from "./../database/index";
+import { dbHandler, dbHandlerPost } from "./../database/index";
 import { ResultSetHeader } from "mysql2";
 import { OkPacket, RowDataPacket } from "mysql2";
 import { Request, Response, NextFunction } from "express";
@@ -45,15 +45,15 @@ export const addHotel = async (
         new ErrorResponse(errorMessages.hotels.isExistHotelName, 403)
       );
     } else {
-      const results: ResultSetHeader[] = await dbHandler<ResultSetHeader>(
+      const results: ResultSetHeader = await dbHandlerPost<ResultSetHeader>(
         hotelQueries.addHotel,
         values
       );
       console.log("💛results:", results);
-      if (results.length !== 0) {
+      if (results?.insertId > 0) {
         res.send(
           sendOnFormat(
-            { ...req.body, id: results[0]?.insertId },
+            { ...req.body, id: results?.insertId },
             true,
             200,
             successMessages.hotels.addHotel
@@ -112,14 +112,6 @@ export const getSingleHotelById = async (
   }
 };
 
-// async function updatePortfolio(db: dbHandlerPost, portfolioId, update) {
-//   const query = "Update Portfolio SET " + Object.keys(update).map(key => `${key} = ?`).join(", ") + " WHERE id = ?";
-//   const parameters = [...Object.values(update), portfolioId];
-//   console.log("updatePortfolio: Running query:", query);
-//   const [rows, meta] = await db.query(query, parameters);
-//   return rows;
-// }
-
 export const updateSingleHotelById = async (
   req: Request,
   res: Response,
@@ -173,12 +165,12 @@ export const deleteHotelById = async (
 ): Promise<void> => {
   try {
     const targetHotelId = req.params.id;
-    const results: OkPacket[] = await dbHandler<OkPacket>(
+    const results: OkPacket = await dbHandlerPost<OkPacket>(
       hotelQueries.deleteHotelById,
       [targetHotelId]
     );
     console.log("💛results:", results);
-    if (results.length !== 0) {
+    if (results.affectedRows > 0) {
       res.send(
         sendOnFormat(results, true, 200, successMessages.hotels.deleteHotelById)
       );
