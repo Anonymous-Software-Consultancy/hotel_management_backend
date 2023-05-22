@@ -10,16 +10,31 @@ export const successMessages = {
     },
     facility_group: {
         addFacilityGroup: 'Added Facilities Successfully.',
+        getAllFacilityGroup: 'Showing All Facility Group Successfully.',
         getFacilityGroupById: 'Found Facility Group Successfully.',
-        updateFacilityGroupById: 'Facility Group Updated Successfully.',
+        updateFacilityGroupById: 'Updated Facility Group Successfully.',
         deleteFacilityGroupById: 'Deleted Facility Group Successfully.',
     },
     board_type: {
         addBoardTypep: 'Added Board Type Successfully.',
         getBoardTypepById: 'Found Board Type Successfully.',
-        updateBoardTypeById: 'Board Type Updated Successfully.',
+        updateBoardTypeById: 'Updated Board Type Successfully.',
         deleteBoardTypepById: 'Deleted Board Type Successfully.',
     },
+    packages: {
+        addPackage: 'Added Package Successfully.',
+        getAllPackages: 'Found All Packages Successfully.',
+        getSinglePackageById: 'Found Package Successfully.',
+        updateSinglePackageById: 'Updated Package Successfully.',
+        deletePackageById: 'Deleted Package Successfully.'
+    },
+    rooms: {
+        addRoom: 'Added Room Successfully.',
+        getAllRooms: 'Found All Rooms Successfully.',
+        getSingleRoomById: 'Found Room Successfully.',
+        updateSingleRoomById: 'Updated Room Successfully.',
+        deleteSingleRoomById: 'Deleted Room Successfully.'
+    }
 }
 
 export const errorMessages = {
