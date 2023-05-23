@@ -34,6 +34,20 @@ export const successMessages = {
         getSingleRoomById: 'Found Room Successfully.',
         updateSingleRoomById: 'Updated Room Successfully.',
         deleteSingleRoomById: 'Deleted Room Successfully.'
+    },
+    roomImages: {
+        addRoomImage: 'Added Room Image Successfully.',
+        getAllRoomImages: 'Found All Room Images Successfully.',
+        getSingleRoomImageById: 'Found Room Image Successfully.',
+        updateSingleRoomImageById: 'Updated Room Image Successfully.',
+        deleteSingleRoomImageById: 'Deleted Room Image Successfully.'
+    },
+    hotelImages: {
+        addHotelImage: 'Added Hotel Image Successfully.',
+        getAllHotelImages: 'Found All Hotel Images Successfully.',
+        getSingleHotelImageById: 'Found Hotel Image Successfully.',
+        updateSingleHotelImageById: 'Updated Hotel Image Successfully.',
+        deleteSingleHotelImageById: 'Deleted Hotel Image Successfully.'
     }
 }
 

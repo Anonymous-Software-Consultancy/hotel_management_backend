@@ -99,3 +99,33 @@ export interface Rooms {
     affectedRows: number;
 }
 
+export interface RoomImages {
+    id: number,
+    created_at: Date,
+    updated_at: Date,
+    name: string,
+    description: string,
+    source_url: string,
+    room_id: number,
+    affectedRows: number
+}
+export interface HotelImages {
+    id: number,
+    created_at: Date,
+    updated_at: Date,
+    name: string,
+    description: string,
+    source_url: string,
+    hotel_id: number,
+    affectedRows: number
+}
+export interface Carts {
+    id: number,
+    created_at: Date,
+    updated_at: Date,
+    user_id: number,
+    room_id: number,
+    hotel_id: number,
+    affectedRows: number
+}
+
