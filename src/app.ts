@@ -11,7 +11,8 @@ import boardTypes from './routes/boardTypeRoutes'
 import packagesRoutes from './routes/packagesRoutes';
 import roomRoutes from './routes/roomRoutes';
 import roomImageRoutes from './routes/roomImageRoutes'
-import hotelImageRoutes from './routes/hotelImageRoutes'
+import hotelImageRoutes from './routes/hotelImageRoutes';
+import cartRoutes from './routes/cartRoutes';
 import { errorMiddleWare } from './middlewares/errorMiddleware'
 
 const app = express()
@@ -29,9 +30,10 @@ app.use('/hotels', hotelRoutes);
 app.use('/facility-group', facilityGroupRoutes);
 app.use('/board-types', boardTypes);
 app.use('/packages', packagesRoutes);
-app.use('/rooms', roomRoutes)
-app.use('/room-images', roomImageRoutes)
-app.use('/hotel-images', hotelImageRoutes)
+app.use('/rooms', roomRoutes);
+app.use('/room-images', roomImageRoutes);
+app.use('/hotel-images', hotelImageRoutes);
+app.use('/carts', cartRoutes);
 
 
 // root

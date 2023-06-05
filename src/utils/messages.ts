@@ -48,7 +48,13 @@ export const successMessages = {
         getSingleHotelImageById: 'Found Hotel Image Successfully.',
         updateSingleHotelImageById: 'Updated Hotel Image Successfully.',
         deleteSingleHotelImageById: 'Deleted Hotel Image Successfully.'
-    }
+    },
+    carts: {
+        addCart: 'Added Cart Successfully.',
+        getAllCarts: 'Found All Carts Successfully.',
+        getSingleCartById: 'Found Cart Successfully.',
+        deleteSingleCartById: 'Deleted Cart Successfully.'
+    },
 }
 
 export const errorMessages = {
@@ -61,4 +67,8 @@ export const errorMessages = {
     board_type: {
         isExistFacilityGroup: 'This Board Type Is Already Exists.',
     },
+
+    carts: {
+        isExistCart: 'Already added to your cart.'
+    }
 }
