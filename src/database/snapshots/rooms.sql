@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS rooms (
     id INT AUTO_INCREMENT PRIMARY KEY,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-    updated_at DATETIME ON UPDATE CURRENT_TIMESTAMP,
+    updated_at DATETIME ON UPDATE NOW(),
     adult INT,
     child INT,
     extra_bed INT,

@@ -43,7 +43,9 @@ export const getAllPackages = async (req: Request, res: Response, next: NextFunc
         console.log('💛results:', results)
         if (results?.length > 0) {
             res.send(sendOnFormat(results, true, 200, successMessages.packages.getAllPackages))
-        }
+        }else if(results?.length === 0){
+            res.send(sendOnFormat(null, true, 200, 'No data found.'))
+        }else{return}
     } catch (error) {
         return next(new ErrorResponse(error, 500))
     }
