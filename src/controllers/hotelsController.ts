@@ -80,7 +80,9 @@ export const getAllHotels = async (
       res.send(
         sendOnFormat(results, true, 200, successMessages.hotels.getAllHotels)
       );
-    }
+    } else if (results?.length === 0) {
+      res.send(sendOnFormat(null, true, 200, 'No data found.'))
+    } else { return }
   } catch (error) {
     return next(new ErrorResponse(error, 500));
   }
