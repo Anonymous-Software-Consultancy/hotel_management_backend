@@ -13,6 +13,9 @@ import roomRoutes from './routes/roomRoutes';
 import roomImageRoutes from './routes/roomImageRoutes'
 import hotelImageRoutes from './routes/hotelImageRoutes';
 import cartRoutes from './routes/cartRoutes';
+import feedBackRoutes from './routes/feedBackRoutes';
+import addressRoutes from './routes/addressRoutes';
+import amenitiesRoutes from './routes/amenitiesRoutes';
 import { errorMiddleWare } from './middlewares/errorMiddleware'
 
 const app = express()
@@ -34,6 +37,9 @@ app.use('/rooms', roomRoutes);
 app.use('/room-images', roomImageRoutes);
 app.use('/hotel-images', hotelImageRoutes);
 app.use('/carts', cartRoutes);
+app.use('/feed-backs', feedBackRoutes);
+app.use('/addresses', addressRoutes);
+app.use('/amenities', amenitiesRoutes);
 
 
 // root

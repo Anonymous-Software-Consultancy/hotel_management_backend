@@ -8,7 +8,7 @@ export const cartQueries = {
         room_id,
         hotel_id
         ) VALUES (?,?,?)`,
-    
+
     isExistCart: `SELECT user_id, room_id, hotel_id FROM carts WHERE user_id = ? AND room_id = ? AND hotel_id = ?`,
 
     getAllCarts: `SELECT * FROM carts`,

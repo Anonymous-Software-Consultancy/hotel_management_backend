@@ -129,3 +129,61 @@ export interface Carts {
     affectedRows: number
 }
 
+export interface FeedBacks {
+  id: number,
+  created_at: Date,
+  updated_at: Date,
+  rating_value: number,
+  review_comment: string,
+  user_id: number,
+  hotel_id: number,
+  affectedRows: number
+}
+
+export interface Addresses {
+  id: number,
+  created_at: Date,
+  updated_at: Date,
+  area: string,
+  street_address: string,
+  city: string,
+  country: string,
+  hotel_id: number,
+  affectedRows: number
+}
+
+export interface Amenities {
+  id: number,
+  created_at: Date,
+  updated_at: Date,
+  air_conditioning: boolean,
+  balcony: boolean,
+  bathtub: boolean,
+  ceiling_fan: boolean,
+  clothes_dryer: boolean,
+  connecting_rooms: boolean,
+  cooker: boolean,
+  dining_area: boolean,
+  electric_kettle: boolean,
+  garden_view: boolean,
+  hairdryer: boolean,
+  hot_water: boolean,
+  ironing_set: boolean,
+  kitchenete: boolean,
+  microwave_oven: boolean,
+  minibar: boolean,
+  mountain_or_hill_view: boolean,
+  non_smoking_room: boolean,
+  pool_view: boolean,
+  power_outlet: boolean,
+  private_beach: boolean,
+  safe_or_locker: boolean,
+  smoking_room: boolean,
+  tea_and_offee: boolean,
+  telephone: boolean,
+  toiletries: boolean,
+  tv: boolean,
+  wifi: boolean,
+  room_id: number,
+  affectedRows: number
+}

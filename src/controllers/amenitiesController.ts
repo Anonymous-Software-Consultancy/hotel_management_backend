@@ -3,21 +3,21 @@ import { OkPacket, ResultSetHeader } from "mysql2";
 import { dbHandler, dbHandlerPost } from "../database";
 import { sendOnFormat } from "../utils/responseFormat";
 import { ErrorResponse } from "../errorHandler/errorResponse";
-import { hotelImagesQueries } from "../utils/sqlQueries/hotelImagesQueries";
+import { amenitiesQueries } from "../utils/sqlQueries/amenitiesQueries";
 import { successMessages } from "../utils/messages";
-import { HotelImages } from "../types/types";
+import { Amenities } from "../types/types";
 
 
-export const addHotelImage = async (
+export const addAmenities = async (
     req: Request,
     res: Response,
     next: NextFunction
 ): Promise<void> => {
-    const { addHotelImage } = hotelImagesQueries;
+    const { addAmenities } = amenitiesQueries;
     const values = [...Object.values(req.body)];
     try {
         const results: ResultSetHeader = await dbHandlerPost<ResultSetHeader>(
-            addHotelImage,
+            addAmenities,
             values
         );
         console.log("💛results:", results)
@@ -28,7 +28,7 @@ export const addHotelImage = async (
                     { ...req.body, id: results?.insertId },
                     true,
                     200,
-                    successMessages.hotelImages.addHotelImage
+                    successMessages?.amenities?.addAmenities
                 )
             );
         }
@@ -37,60 +37,61 @@ export const addHotelImage = async (
     }
 };
 
-export const getAllHotelImages = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    const { getAllHotelImages } = hotelImagesQueries;
+export const getAllAmenities = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    const { getAllAmenities } = amenitiesQueries;
     try {
-        const results: HotelImages[] = await dbHandler<HotelImages>(getAllHotelImages, [])
+        const results: Amenities[] = await dbHandler<Amenities>(getAllAmenities, [])
         console.log('💛results:', results)
         if (results?.length > 0) {
-            res.send(sendOnFormat(results, true, 200, successMessages.hotelImages.getAllHotelImages))
-        }else if(results?.length === 0){
+            res.send(sendOnFormat(results, true, 200, successMessages?.amenities?.getAllAmenities))
+        } else if (results?.length === 0) {
             res.send(sendOnFormat(null, true, 200, 'No data found.'))
-        }else{return}
+        } else { return }
+
     } catch (error) {
         return next(new ErrorResponse(error, 500))
     }
 }
 
-export const getSingleHotelImageById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    const { getSingleHotelImageById } = hotelImagesQueries;
+export const getSingleAmenitiesById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    const { getSingleAmenitiesById } = amenitiesQueries;
     const targetId = req.params.id
     try {
-        const results: HotelImages[] = await dbHandler<HotelImages>(getSingleHotelImageById, [targetId])
+        const results: Amenities[] = await dbHandler<Amenities>(getSingleAmenitiesById, [targetId])
         console.log('💛results:', results)
         if (results?.length > 0) {
-            res.send(sendOnFormat(results, true, 200, successMessages.hotelImages.getSingleHotelImageById))
-        }else if(results?.length === 0){
+            res.send(sendOnFormat(results, true, 200, successMessages?.amenities?.getSingleAmenitiesById))
+        } else if (results?.length === 0) {
             res.send(sendOnFormat(null, true, 200, 'No data found.'))
-        }else{return}
+        } else { return }
     } catch (error) {
         return next(new ErrorResponse(error, 500))
     }
 }
 
-export const updateSingleHotelImageById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    const { updateSingleHotelImageById } = hotelImagesQueries;
+export const updateSingleAmenitiesById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    const { updateSingleAmenitiesById } = amenitiesQueries;
     const targetId = req.params.id
     const values = [...Object.values(req.body), targetId]
     try {
-        const results: HotelImages = await dbHandlerPost<HotelImages>(updateSingleHotelImageById, values)
+        const results: Amenities = await dbHandlerPost<Amenities>(updateSingleAmenitiesById, values)
         console.log('💛results:', results)
         if (results?.affectedRows > 0) {
-            res.send(sendOnFormat(results, true, 200, successMessages.hotelImages.updateSingleHotelImageById))
+            res.send(sendOnFormat(results, true, 200, successMessages?.amenities?.updateSingleAmenitiesById))
         }
     } catch (error) {
         return next(new ErrorResponse(error, 500))
     }
 }
 
-export const deleteSingleHotelImageById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    const { deleteSingleHotelImageById } = hotelImagesQueries;
+export const deleteSingleAmenitiesById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+    const { deleteSingleAmenitiesById } = amenitiesQueries;
     const targetId = req.params.id;
     try {
-        const results: OkPacket = await dbHandlerPost<OkPacket>(deleteSingleHotelImageById, [targetId])
+        const results: OkPacket = await dbHandlerPost<OkPacket>(deleteSingleAmenitiesById, [targetId])
         console.log('💛results:', results)
         if (results?.affectedRows > 0) {
-            res.send(sendOnFormat(results, true, 200, successMessages.hotelImages.deleteSingleHotelImageById))
+            res.send(sendOnFormat(results, true, 200, successMessages?.amenities?.deleteSingleAmenitiesById))
         }
     } catch (error) {
         return next(new ErrorResponse(error, 500))

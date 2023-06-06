@@ -1,3 +1,4 @@
+import { FeedBacks } from './../types/types';
 // import { objectType } from "../types/types"
 
 export const successMessages = {
@@ -55,6 +56,27 @@ export const successMessages = {
         getSingleCartById: 'Found Cart Successfully.',
         deleteSingleCartById: 'Deleted Cart Successfully.'
     },
+    feedBacks: {
+        addFeedBacks: 'Added Feed Back Successfully.',
+        getAllFeedBacks: 'Found All Feed Backs Successfully.',
+        getSingleFeedBackById: 'Found Feed Back Successfully.',
+        updateSingleFeedBackById: 'Updated Feed Back Successfully.',
+        deleteSingleFeedBackById: 'Deleted Feed Back Successfully.'
+    },
+    addresses: {
+        addAddress: 'Added Address Successfully.',
+        getAllAddresses: 'Found All Addresses Successfully.',
+        getSingleAddressById: 'Found Address Successfully.',
+        updateSingleAddressById: 'Updated Address Successfully.',
+        deleteSingleAddressById: 'Deleted Address Successfully.'
+    },
+    amenities: {
+        addAmenities: 'Added Amenities Successfully.',
+        getAllAmenities: 'Found All Amenities Successfully.',
+        getSingleAmenitiesById: 'Found Amenities Successfully.',
+        updateSingleAmenitiesById: 'Updated Amenities Successfully.',
+        deleteSingleAmenitiesById: 'Deleted Amenities Successfully.'
+    },
 }
 
 export const errorMessages = {
@@ -70,5 +92,9 @@ export const errorMessages = {
 
     carts: {
         isExistCart: 'Already added to your cart.'
+    },
+
+    amenities: {
+        isExistAmenities: 'Already added this amenities.'
     }
 }
