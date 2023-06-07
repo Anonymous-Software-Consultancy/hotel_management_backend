@@ -77,6 +77,12 @@ export const successMessages = {
         updateSingleAmenitiesById: 'Updated Amenities Successfully.',
         deleteSingleAmenitiesById: 'Deleted Amenities Successfully.'
     },
+    bookeByuser: {
+        addBooking: 'Added Booking Successfully.',
+        getAllBookings: 'Found All Bookings Successfully.',
+        getSingleBookingById: 'Found Booking Successfully.',
+        deleteSingleBookingById: 'Deleted Booking Successfully.'
+    },
 }
 
 export const errorMessages = {
