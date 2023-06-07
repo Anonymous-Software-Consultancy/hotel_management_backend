@@ -187,3 +187,15 @@ export interface Amenities {
   room_id: number,
   affectedRows: number
 }
+
+export interface BookedByUsers {
+  id: number,
+  created_at: Date,
+  updated_at: Date,
+  check_in: Date,
+  check_out: Date,
+  user_id: number,
+  room_id: number,
+  hotel_id: number,
+  affectedRows: number
+} 
