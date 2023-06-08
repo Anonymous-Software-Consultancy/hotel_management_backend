@@ -16,6 +16,7 @@ export interface User {
 }
 
 export interface Hotel {
+  affectedRows: number;
   id: number;
   created_at: Date;
   updated_at: Date;

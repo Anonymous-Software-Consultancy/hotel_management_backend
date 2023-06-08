@@ -118,14 +118,13 @@ export const searchByHotelName = async (
     next: NextFunction
 ): Promise<void> => {
     try {
-        const { searchByHotelName } = searchQueries;
-        const searchedHotel = req.query.hotelName;
-        const results: Hotel[] = await dbHandler<Hotel>(`SELECT id, name FROM hotels WHERE name LIKE '%${searchedHotel}%'`, []);
+        const searchedHotel:string | any = req.query.hotelName;
+        const results: Hotel[] = await dbHandler<Hotel>(`SELECT id, name FROM hotels WHERE name LIKE '%${(searchedHotel !== '') && searchedHotel}%'`, []);
 
         if (results?.length > 0) {
             res.send(sendOnFormat(results, true, 200, successMessages?.searchHotelByName?.searchSuccess)).end()
         } else {
-            res.send(sendOnFormat(results, true, 500, errorMessages?.searchHotelByName?.searchFailure)).end()
+            res.send(sendOnFormat(results, true, 404, errorMessages?.searchHotelByName?.searchFailure)).end()
         }
 
     } catch (error) {

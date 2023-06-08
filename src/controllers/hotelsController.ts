@@ -66,6 +66,32 @@ export const addHotel = async (
   }
 };
 
+// server-side-pagination
+export const getHotelsByPageCount = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const results:Hotel[] = await dbHandler<Hotel>(`SELECT count(*) FROM hotels`,[]); 
+    const currentPage:number = Number(req.query.page || 1);
+    const limit:number = 10;
+    const totalDataLength:number = Object.values(results[0])[0];
+    const numberOfPages:number = Math.ceil(totalDataLength/limit);
+    const startIndex:number = (currentPage - 1) * limit;
+    const endIndex:number = currentPage * limit;
+
+    const paginatedResults:Hotel[] = await dbHandler<Hotel>(`SELECT id, name FROM hotels LIMIT ${startIndex},${endIndex}`,[])
+    if (paginatedResults?.length > 0) {
+        res.send(sendOnFormat(paginatedResults, true, 200, successMessages?.searchHotelByName?.searchSuccess)).end()
+    }else{
+        res.send(sendOnFormat(paginatedResults, true, 404, errorMessages?.searchHotelByName?.searchFailure)).end()
+    }
+} catch (error) {
+    return next(new ErrorResponse(error, 500));
+}
+};
+
 export const getAllHotels = async (
   req: Request,
   res: Response,
@@ -120,32 +146,11 @@ export const updateSingleHotelById = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const targetHotelId = req.params.id;
-    const {
-      name,
-      tax,
-      service_charge,
-      partnership_discount,
-      discount_promo_code,
-      discount_description,
-      rating_value,
-    } = req.body;
-
-    const values = [
-      name,
-      tax,
-      service_charge,
-      partnership_discount,
-      discount_promo_code,
-      discount_description,
-      rating_value,
-    ];
-    const results: Hotel[] = await dbHandler<Hotel>(
-      hotelQueries.updateSingleHotelById,
-      [values, targetHotelId]
-    );
+    const targetId = req.params.id;
+    const values = [...Object.values(req.body), targetId]
+    const results: Hotel = await dbHandlerPost<Hotel>(hotelQueries.updateSingleHotelById, values);
     console.log("💛results:", results);
-    if (results.length !== 0) {
+    if (results?.affectedRows > 0) {
       res.send(
         sendOnFormat(
           { ...req.body },
