@@ -83,6 +83,16 @@ export const successMessages = {
         getSingleBookingById: 'Found Booking Successfully.',
         deleteSingleBookingById: 'Deleted Booking Successfully.'
     },
+    likes: {
+        like: 'You Liked The Packages.',
+        getAllLikesByUserId: 'Your All Likes Found Successfully.',
+        getLikedUserById: 'Found The Liked User Successfully.',
+        getAllLikesByPackageId: 'Found All Liked Packages.',
+        unLike: 'You Unliked The Packages.'
+    },
+    searchHotelByName: {
+        searchSuccess: 'Found Your Desired Hotel Successfully.'
+    }
 }
 
 export const errorMessages = {
@@ -102,5 +112,8 @@ export const errorMessages = {
 
     amenities: {
         isExistAmenities: 'Already added this amenities.'
+    },
+    searchHotelByName: {
+        searchFailure: 'Your Desired Hotel is not found.'
     }
 }
