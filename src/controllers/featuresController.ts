@@ -23,9 +23,9 @@ export const like = async (
         const values = [...Object.values(req.body)]
 
         const checkIsLiked: Likes[] = await dbHandler<Likes>(getLikedUserById, [true, 3, packageId])
-        const isLikedByUser = checkIsLiked?.length === 0 ? false : true;
+        const isAlreadyLiked = checkIsLiked?.length === 0 ? false : true;
 
-        if (isLikedByUser === false) {
+        if (isAlreadyLiked === false) {
             // addLike functionalities
             const results: ResultSetHeader = await dbHandlerPost<ResultSetHeader>(
                 like, values
@@ -49,9 +49,9 @@ export const unLike = async (
         const packageId = req.query.packageId;
 
         const checkIsLiked: Likes[] = await dbHandler<Likes>(getLikedUserById, [true, 1, packageId])
-        const isLikedByUser = checkIsLiked?.length === 0 ? false : true;
+        const isAlreadyLiked = checkIsLiked?.length === 0 ? false : true;
 
-        if (isLikedByUser === true) {
+        if (isAlreadyLiked === true) {
             // unLiked functionalities
             const results: OkPacket = await dbHandlerPost<OkPacket>(unLike, [1, packageId])
             if (results?.affectedRows > 0) {

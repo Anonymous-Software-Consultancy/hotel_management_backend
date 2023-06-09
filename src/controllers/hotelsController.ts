@@ -73,23 +73,26 @@ export const getHotelsByPageCount = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const results:Hotel[] = await dbHandler<Hotel>(`SELECT count(*) FROM hotels`,[]); 
-    const currentPage:number = Number(req.query.page || 1);
-    const limit:number = 10;
-    const totalDataLength:number = Object.values(results[0])[0];
-    const numberOfPages:number = Math.ceil(totalDataLength/limit);
-    const startIndex:number = (currentPage - 1) * limit;
-    const endIndex:number = currentPage * limit;
+    const results: Hotel[] = await dbHandler<Hotel>(`SELECT count(*) FROM hotels`, []);
+    const currentPage: number = Number(req.query.page || 1);
+    const limit: number = 10;
+    const totalDataLength: number = Object.values(results[0])[0];
+    const numberOfPages: number = Math.ceil(totalDataLength / limit);
+    const startIndex: number = (currentPage - 1) * limit;//skip
+    const endIndex: number = currentPage * limit;
 
-    const paginatedResults:Hotel[] = await dbHandler<Hotel>(`SELECT id, name FROM hotels LIMIT ${startIndex},${endIndex}`,[])
+    // paginated-with-mysql-deferred-join-technique
+    const query = `SELECT id, name FROM hotels INNER JOIN (SELECT id FROM hotels ORDER BY id LIMIT ${endIndex} OFFSET ${startIndex}) AS tmp USING(id) ORDER BY id`;
+
+    const paginatedResults: Hotel[] = await dbHandler<Hotel>(query, [])
     if (paginatedResults?.length > 0) {
-        res.send(sendOnFormat(paginatedResults, true, 200, successMessages?.searchHotelByName?.searchSuccess)).end()
-    }else{
-        res.send(sendOnFormat(paginatedResults, true, 404, errorMessages?.searchHotelByName?.searchFailure)).end()
+      res.send(sendOnFormat(paginatedResults, true, 200, successMessages?.searchHotelByName?.searchSuccess)).end()
+    } else {
+      res.send(sendOnFormat(paginatedResults, true, 404, errorMessages?.searchHotelByName?.searchFailure)).end()
     }
-} catch (error) {
+  } catch (error) {
     return next(new ErrorResponse(error, 500));
-}
+  }
 };
 
 export const getAllHotels = async (
