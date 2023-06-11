@@ -16,9 +16,10 @@ export interface User {
 }
 
 export interface Hotel {
+  affectedRows: number;
   id: number;
-  created_at: Date;
-  updated_at: Date;
+  created_at: string;
+  updated_at: string;
   name: string;
   tax: number;
   service_charge: number;
@@ -199,3 +200,13 @@ export interface BookedByUsers {
   hotel_id: number,
   affectedRows: number
 } 
+
+export interface Likes {
+  id: number,
+  created_at: Date,
+  updated_at: Date,
+  isLiked: boolean,
+  liked_user_id: number,
+  package_id: number,
+  affectedRows: number
+}
