@@ -17,6 +17,8 @@ import feedBackRoutes from './routes/feedBackRoutes';
 import addressRoutes from './routes/addressRoutes';
 import amenitiesRoutes from './routes/amenitiesRoutes';
 import bookedByUserRoutes from './routes/bookedByUserRoutes';
+import likeRoutes from './routes/featureRoutes/likeRoutes';
+import searchRoutes from './routes/featureRoutes/searchRoutes';
 import { errorMiddleWare } from './middlewares/errorMiddleware'
 
 const app = express()
@@ -42,6 +44,8 @@ app.use('/feed-backs', feedBackRoutes);
 app.use('/addresses', addressRoutes);
 app.use('/amenities', amenitiesRoutes);
 app.use('/bookings', bookedByUserRoutes);
+app.use('/reacts', likeRoutes);
+app.use('/hotels', searchRoutes);
 
 
 // root

@@ -3,13 +3,13 @@ export const sendOnFormat = (
   success: boolean,
   status: number,
   message: string,
-  extra?: any | null
+  ...extra: any | null
 ): object => {
   return {
     data: data,
     success: true,
     status: status,
     message: message,
-    extra: extra,
+    extra: extra[0],
   };
 };
