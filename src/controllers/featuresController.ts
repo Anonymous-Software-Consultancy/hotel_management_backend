@@ -23,9 +23,9 @@ export const like = async (
         const values = [...Object.values(req.body)]
 
         const checkIsLiked: Likes[] = await dbHandler<Likes>(getLikedUserById, [true, 3, packageId])
-        const isLikedByUser = checkIsLiked?.length === 0 ? false : true;
+        const isAlreadyLiked = checkIsLiked?.length === 0 ? false : true;
 
-        if (isLikedByUser === false) {
+        if (isAlreadyLiked === false) {
             // addLike functionalities
             const results: ResultSetHeader = await dbHandlerPost<ResultSetHeader>(
                 like, values
@@ -49,9 +49,9 @@ export const unLike = async (
         const packageId = req.query.packageId;
 
         const checkIsLiked: Likes[] = await dbHandler<Likes>(getLikedUserById, [true, 1, packageId])
-        const isLikedByUser = checkIsLiked?.length === 0 ? false : true;
+        const isAlreadyLiked = checkIsLiked?.length === 0 ? false : true;
 
-        if (isLikedByUser === true) {
+        if (isAlreadyLiked === true) {
             // unLiked functionalities
             const results: OkPacket = await dbHandlerPost<OkPacket>(unLike, [1, packageId])
             if (results?.affectedRows > 0) {
@@ -119,15 +119,24 @@ export const searchByHotelName = async (
 ): Promise<void> => {
     try {
         const searchedHotel:string | any = req.query.hotelName;
-        const results: Hotel[] = await dbHandler<Hotel>(`SELECT id, name FROM hotels WHERE name LIKE '%${(searchedHotel !== '') && searchedHotel}%'`, []);
+        // just find searched hotel by this query
+        // const results: Hotel[] = await dbHandler<Hotel>(`SELECT id, name FROM hotels WHERE name LIKE '%${(searchedHotel !== '') && searchedHotel}%'`, []);
 
-        if (results?.length > 0) {
-            res.send(sendOnFormat(results, true, 200, successMessages?.searchHotelByName?.searchSuccess)).end()
+        // find searched hotel with hotel image src by this query
+        const results2: Hotel[] = await dbHandler<Hotel>(`SELECT ho.id,ho.name,source_url FROM hotels ho LEFT JOIN hotel_images hi ON ho.id = hi.hotel_id WHERE ho.name LIKE '%${(searchedHotel !== '') && searchedHotel}%'`,[])
+
+        console.log("💛results2:", results2[results2.length-1].id)
+
+        if (results2?.length > 0) {
+            res.send(sendOnFormat(results2, true, 200, successMessages?.searchHotelByName?.searchSuccess)).end()
         } else {
-            res.send(sendOnFormat(results, true, 404, errorMessages?.searchHotelByName?.searchFailure)).end()
+            res.send(sendOnFormat(results2, true, 404, errorMessages?.searchHotelByName?.searchFailure)).end()
         }
 
     } catch (error) {
         return next(new ErrorResponse(error, 500));
     }
 }
+
+
+// SELECT source_url,hotel_id FROM hotel_images hi INNER JOIN hotels h ON h.id = hi.hotel_id
